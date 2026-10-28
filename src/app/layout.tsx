@@ -25,10 +25,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-theme="warm" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var raw = localStorage.getItem('resume_builder_theme_mode');
+                  var theme = 'warm';
+                  if (raw) {
+                    var parsed = JSON.parse(raw);
+                    if (parsed && parsed.state && parsed.state.theme) {
+                      theme = parsed.state.theme;
+                    }
+                  }
+                  document.documentElement.setAttribute('data-theme', theme);
+                  if (theme === 'dim') {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#F8FAFC] text-slate-900`}>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 text-slate-900`}>
         {children}
       </body>
     </html>

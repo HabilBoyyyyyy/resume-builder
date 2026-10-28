@@ -48,7 +48,184 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-:root {
+/* ==========================================================================
+   WORKSPACE THEMES FOR EYE COMFORT
+   Default: Warm Paper (gentle cream & parchment, anti-glare)
+   ========================================================================== */
+
+:root,
+[data-theme="warm"] {
+  --background: #f4efe6;
+  --foreground: #2b2520;
+  --card: #faf7f2;
+  --card-foreground: #2b2520;
+  --popover: #faf7f2;
+  --popover-foreground: #2b2520;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #ede7dc;
+  --secondary-foreground: #2b2520;
+  --muted: #ede7dc;
+  --muted-foreground: #73685c;
+  --accent: #e5ded1;
+  --accent-foreground: #2b2520;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #dfd7c9;
+  --input: #d4cbba;
+  --ring: #2563eb;
+  --chart-1: #c4b5a0;
+  --chart-2: #8f8270;
+  --chart-3: #6b6050;
+  --chart-4: #4a4034;
+  --chart-5: #2d261e;
+  --radius: 0.625rem;
+  --sidebar: #ede7dc;
+  --sidebar-foreground: #2b2520;
+  --sidebar-primary: #2563eb;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e5ded1;
+  --sidebar-accent-foreground: #2b2520;
+  --sidebar-border: #dfd7c9;
+  --sidebar-ring: #2563eb;
+
+  /* Tailwind slate & white palette mapping for Warm Paper */
+  --color-white: #faf7f2;
+  --color-slate-50: #f5f0e6;
+  --color-slate-100: #ede7dc;
+  --color-slate-200: #dfd7c9;
+  --color-slate-300: #d4cbba;
+  --color-slate-400: #9e9380;
+  --color-slate-500: #73685c;
+  --color-slate-600: #594f40;
+  --color-slate-700: #42392d;
+  --color-slate-800: #2e261d;
+  --color-slate-900: #201a13;
+
+  /* Warm tinted accents */
+  --color-blue-50: #edf4fb;
+  --color-blue-100: #dceaf7;
+  --color-blue-200: #bed8f0;
+}
+
+[data-theme="dim"],
+.dark[data-theme="dim"] {
+  --background: #171b24;
+  --foreground: #f1f5f9;
+  --card: #212836;
+  --card-foreground: #f1f5f9;
+  --popover: #212836;
+  --popover-foreground: #f1f5f9;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #283243;
+  --secondary-foreground: #e2e8f0;
+  --muted: #283243;
+  --muted-foreground: #94a3b8;
+  --accent: #2e394d;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: #2e384b;
+  --input: #38445a;
+  --ring: #60a5fa;
+  --chart-1: #3b82f6;
+  --chart-2: #60a5fa;
+  --chart-3: #93c5fd;
+  --chart-4: #bfdbfe;
+  --chart-5: #dbeafe;
+  --radius: 0.625rem;
+  --sidebar: #1b212c;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-primary: #3b82f6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2e394d;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #2e384b;
+  --sidebar-ring: #60a5fa;
+
+  /* Tailwind slate & white palette mapping for Dim Slate */
+  --color-white: #212836;
+  --color-slate-50: #171b24;
+  --color-slate-100: #1e2430;
+  --color-slate-200: #2d374a;
+  --color-slate-300: #3b475e;
+  --color-slate-400: #64748b;
+  --color-slate-500: #94a3b8;
+  --color-slate-600: #cbd5e1;
+  --color-slate-700: #e2e8f0;
+  --color-slate-800: #f1f5f9;
+  --color-slate-900: #f8fafc;
+
+  /* Night-friendly blue chips */
+  --color-blue-50: #1e3a5f;
+  --color-blue-100: #1d4ed833;
+  --color-blue-200: #2563eb66;
+  --color-blue-600: #3b82f6;
+  --color-blue-700: #93c5fd;
+
+  /* Score indicators */
+  --color-emerald-50: #064e3b40;
+  --color-emerald-200: #065f46;
+  --color-emerald-700: #6ee7b7;
+  --color-emerald-800: #6ee7b7;
+  --color-amber-50: #78350f40;
+  --color-amber-200: #92400e;
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fcd34d;
+  --color-red-50: #7f1d1d40;
+  --color-red-200: #991b1b;
+  --color-red-700: #fca5a5;
+  --color-red-800: #fca5a5;
+}
+
+[data-theme="stone"] {
+  --background: #e8eaed;
+  --foreground: #1f2937;
+  --card: #f3f4f6;
+  --card-foreground: #1f2937;
+  --popover: #f3f4f6;
+  --popover-foreground: #1f2937;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --secondary: #e2e4e9;
+  --secondary-foreground: #1f2937;
+  --muted: #e2e4e9;
+  --muted-foreground: #64748b;
+  --accent: #d8dce2;
+  --accent-foreground: #1f2937;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #cbd0d8;
+  --input: #bcc3cc;
+  --ring: #3b82f6;
+  --chart-1: #9ca3af;
+  --chart-2: #6b7280;
+  --chart-3: #4b5563;
+  --chart-4: #374151;
+  --chart-5: #1f2937;
+  --radius: 0.625rem;
+  --sidebar: #dee1e6;
+  --sidebar-foreground: #1f2937;
+  --sidebar-primary: #2563eb;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #d8dce2;
+  --sidebar-accent-foreground: #1f2937;
+  --sidebar-border: #cbd0d8;
+  --sidebar-ring: #3b82f6;
+
+  /* Tailwind slate & white palette mapping for Soft Stone */
+  --color-white: #f3f4f6;
+  --color-slate-50: #e8eaed;
+  --color-slate-100: #e0e3e8;
+  --color-slate-200: #cbd0d8;
+  --color-slate-300: #bcc3cc;
+  --color-slate-400: #8f98a6;
+  --color-slate-500: #64748b;
+  --color-slate-600: #4b5563;
+  --color-slate-700: #374151;
+  --color-slate-800: #1f2937;
+  --color-slate-900: #111827;
+}
+
+[data-theme="light"] {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -81,40 +258,19 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-}
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Original Tailwind defaults */
+  --color-white: #ffffff;
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
 }
 
 @layer base {
@@ -127,6 +283,15 @@
   html {
     @apply font-sans;
   }
+}
+
+/* ==========================================================================
+   GLOBAL UTILITY SAFEGUARDS FOR THEMES
+   ========================================================================== */
+
+/* Buttons and badges with text-white stay crisp white across all themes */
+.text-white {
+  color: #ffffff !important;
 }
 
 /* ==========================================================================

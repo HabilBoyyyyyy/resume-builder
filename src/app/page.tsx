@@ -26,6 +26,7 @@ import {PublicationsForm} from "@/components/editor/forms/PublicationsForm";
 import {StyleControlPanel} from "@/components/editor/StyleControlPanel";
 import {ResumePreviewViewport} from "@/components/preview/ResumePreviewViewport";
 import {AtsCheckerModal} from "@/components/editor/AtsCheckerModal";
+import {ThemeSwitcher} from "@/components/editor/ThemeSwitcher";
 
 export default function ResumeBuilderWorkspacePage() {
   const resumeTitle = useResumeStore((state) => state.resume.title);
@@ -127,7 +128,7 @@ export default function ResumeBuilderWorkspacePage() {
   };
 
   return (
-    <div className="print-unlock flex h-screen w-screen flex-col overflow-hidden bg-[#F8FAFC] text-slate-900">
+    <div className="print-unlock flex h-screen w-screen flex-col overflow-hidden bg-slate-50 text-slate-900">
       <input
         ref={fileInputRef}
         type="file"
@@ -221,6 +222,8 @@ export default function ResumeBuilderWorkspacePage() {
 
           <AtsCheckerModal />
 
+          <ThemeSwitcher />
+
           <Button
             type="button"
             size="sm"
@@ -240,7 +243,7 @@ export default function ResumeBuilderWorkspacePage() {
         </div>
 
         {/* Pane 2: Active Section Form Editor */}
-        <main className="no-print h-full w-[500px] shrink-0 overflow-y-auto border-r border-slate-200 bg-[#F8FAFC] p-6 xl:w-[560px]">
+        <main className="no-print h-full w-[500px] shrink-0 overflow-y-auto border-r border-slate-200 bg-slate-50 p-6 xl:w-[560px]">
           {renderActiveEditorPane()}
         </main>
 

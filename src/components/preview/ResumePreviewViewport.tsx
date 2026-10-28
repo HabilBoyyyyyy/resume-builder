@@ -35,7 +35,7 @@ export function ResumePreviewViewport() {
   };
 
   return (
-    <div className="print-unlock relative flex h-full w-full flex-col bg-slate-200/80 overflow-hidden">
+    <div className="print-unlock relative flex h-full w-full flex-col bg-slate-200 overflow-hidden">
       {/* Top Preview Toolbar (Hidden in PDF) */}
       <div className="no-print flex items-center justify-between border-b border-slate-200 bg-white px-4 py-2 text-xs text-slate-600">
         <div className="flex items-center gap-2">
