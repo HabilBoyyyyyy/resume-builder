@@ -212,15 +212,6 @@ export default function ResumeBuilderWorkspacePage() {
             <Printer className="h-3.5 w-3.5" />
             Export Vector PDF
           </Button>
-
-          <Button
-            type="button"
-            size="sm"
-            onClick={() => window.print()}
-            className="h-8 gap-1.5 bg-blue-600 text-xs text-white hover:bg-blue-500">
-            <Printer className="h-3.5 w-3.5" />
-            Export Vector PDF
-          </Button>
         </div>
       </header>
 
