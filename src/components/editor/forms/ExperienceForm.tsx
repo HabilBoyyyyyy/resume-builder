@@ -12,6 +12,7 @@ import {
   type ExperienceItem,
 } from "@/schemas/resume.schema";
 import {RichTextInput} from "@/components/editor/RichTextInput";
+import {DateRangePicker} from "@/components/editor/DateRangePicker";
 
 interface ExperienceFormProps {
   sectionId: string;
@@ -48,12 +49,12 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
       ...items,
       ExperienceItemSchema.parse({
         id: crypto.randomUUID(),
-        title: "New Project or Role Title",
-        subtitleOrRole: "",
+        title: "New Project or Company Name",
+        subtitleOrRole: "Software Engineer",
         organizationOrLocation: "",
         techStack: [],
         url: "",
-        dateRange: "2026",
+        dateRange: "Jan. 2026 – Present",
         bullets: [
           {
             id: crypto.randomUUID(),
@@ -99,20 +100,22 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex items-end justify-between gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
         <div className="flex-1 space-y-1.5">
-          <Label className="text-xs text-zinc-300">Section Heading Title</Label>
+          <Label className="text-xs font-semibold text-slate-700">
+            Section Heading Title
+          </Label>
           <Input
             value={section.title}
             onChange={(e) => updateSection(sectionId, {title: e.target.value})}
-            className="bg-zinc-900 border-zinc-800 font-semibold text-zinc-100"
+            className="bg-white border-slate-300 font-bold text-slate-900"
           />
         </div>
         <Button
           type="button"
           size="sm"
           onClick={handleAddEntry}
-          className="gap-1.5 bg-blue-600 text-xs text-white hover:bg-blue-500">
+          className="h-9 gap-1.5 bg-blue-600 text-xs font-semibold text-white hover:bg-blue-700">
           <Plus className="h-3.5 w-3.5" />
           Add Entry
         </Button>
@@ -122,9 +125,9 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
         {items.map((item, idx) => (
           <div
             key={item.id}
-            className="space-y-4 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-xs font-semibold text-zinc-200 truncate">
+            className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+              <span className="text-xs font-bold text-slate-800 truncate">
                 #{idx + 1} — {item.title || "Untitled Entry"}
               </span>
               <div className="flex items-center gap-0.5">
@@ -134,7 +137,7 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                   size="icon"
                   disabled={idx === 0}
                   onClick={() => handleMoveEntry(idx, -1)}
-                  className="h-7 w-7 text-zinc-400 hover:text-white disabled:opacity-30"
+                  className="h-7 w-7 text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30"
                   title="Move Up">
                   <ArrowUp className="h-3.5 w-3.5" />
                 </Button>
@@ -144,7 +147,7 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                   size="icon"
                   disabled={idx === items.length - 1}
                   onClick={() => handleMoveEntry(idx, 1)}
-                  className="h-7 w-7 text-zinc-400 hover:text-white disabled:opacity-30"
+                  className="h-7 w-7 text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30"
                   title="Move Down">
                   <ArrowDown className="h-3.5 w-3.5" />
                 </Button>
@@ -155,12 +158,12 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                   onClick={() =>
                     handleUpdateEntry(item.id, {isVisible: !item.isVisible})
                   }
-                  className="h-7 w-7 text-zinc-400 hover:text-white"
+                  className="h-7 w-7 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
                   title="Toggle Visibility">
                   {item.isVisible ? (
                     <Eye className="h-3.5 w-3.5" />
                   ) : (
-                    <EyeOff className="h-3.5 w-3.5 text-amber-500" />
+                    <EyeOff className="h-3.5 w-3.5 text-amber-600" />
                   )}
                 </Button>
                 <Button
@@ -168,42 +171,38 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                   variant="ghost"
                   size="icon"
                   onClick={() => handleRemoveEntry(item.id)}
-                  className="h-7 w-7 text-zinc-400 hover:text-red-400"
+                  className="h-7 w-7 text-slate-400 hover:bg-red-50 hover:text-red-600"
                   title="Delete Entry">
                   <Trash2 className="h-3.5 w-3.5" />
                 </Button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">
-                  Primary Title (Project / Organization / Company)
+                <Label className="text-xs font-medium text-slate-700">
+                  Primary Title (Company / Project / Org)
                 </Label>
                 <Input
                   value={item.title}
                   onChange={(e) =>
                     handleUpdateEntry(item.id, {title: e.target.value})
                   }
-                  placeholder="VeriVision"
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  placeholder="Nusantara Cloud Technologies"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
 
-              <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">Date Range</Label>
-                <Input
-                  value={item.dateRange}
-                  onChange={(e) =>
-                    handleUpdateEntry(item.id, {dateRange: e.target.value})
-                  }
-                  placeholder="July 2026 or Oct 2024 – July 2025"
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
-                />
-              </div>
+              {/* Interactive Calendar Date Range Picker */}
+              <DateRangePicker
+                label="Date Range (Click to Pick)"
+                mode="range"
+                value={item.dateRange}
+                onChange={(val) => handleUpdateEntry(item.id, {dateRange: val})}
+              />
 
               <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">
+                <Label className="text-xs font-medium text-slate-700">
                   Role / Subtitle (Optional)
                 </Label>
                 <Input
@@ -213,14 +212,14 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                       subtitleOrRole: e.target.value,
                     })
                   }
-                  placeholder="Vice Project Manager or AI Engineer Intern"
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  placeholder="Software Engineer Intern"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
 
               <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">
-                  Institution / Location (Optional)
+                <Label className="text-xs font-medium text-slate-700">
+                  Location / Institution (Optional)
                 </Label>
                 <Input
                   value={item.organizationOrLocation ?? ""}
@@ -229,13 +228,13 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                       organizationOrLocation: e.target.value,
                     })
                   }
-                  placeholder="President University or Jakarta, Indonesia"
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  placeholder="Jakarta, Indonesia"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
 
               <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">
+                <Label className="text-xs font-medium text-slate-700">
                   Inline Tech Stack (Comma-separated, optional)
                 </Label>
                 <Input
@@ -248,13 +247,13 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                         .filter(Boolean),
                     })
                   }
-                  placeholder="Python, YOLOv8, PyTorch, MobileSAM"
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  placeholder="TypeScript, Next.js, FastAPI, PostgreSQL"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
 
               <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">
+                <Label className="text-xs font-medium text-slate-700">
                   Project / Repo URL (Optional)
                 </Label>
                 <Input
@@ -263,24 +262,23 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                     handleUpdateEntry(item.id, {url: e.target.value})
                   }
                   placeholder="https://github.com/..."
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
             </div>
 
             {/* Rich Text Bullets */}
-            <div className="space-y-2 pt-2">
+            <div className="space-y-2.5 border-t border-slate-100 pt-3">
               <div className="flex items-center justify-between">
-                <Label className="text-[11px] text-zinc-400">
-                  Impact & Achievement Bullets (Select text & click B / I /
-                  Link)
+                <Label className="text-xs font-semibold text-slate-700">
+                  Impact & Achievement Bullets
                 </Label>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => handleAddBullet(item.id)}
-                  className="h-6 gap-1 border-zinc-700 bg-zinc-950 text-[11px]">
+                  className="h-7 gap-1 border-slate-300 bg-white text-xs text-slate-700 hover:bg-slate-50">
                   <Plus className="h-3 w-3" />
                   Add Bullet
                 </Button>
@@ -295,7 +293,7 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                       );
                       handleUpdateEntry(item.id, {bullets: updatedBullets});
                     }}
-                    placeholder="Engineered pipeline achieving 97.7% accuracy..."
+                    placeholder="Engineered pipeline achieving 98.1% accuracy..."
                   />
                   <Button
                     type="button"
@@ -306,7 +304,7 @@ export function ExperienceForm({sectionId}: ExperienceFormProps) {
                         bullets: item.bullets.filter((bul) => bul.id !== b.id),
                       })
                     }
-                    className="mt-1 h-7 w-7 text-zinc-500 hover:text-red-400">
+                    className="mt-1 h-7 w-7 text-slate-400 hover:bg-red-50 hover:text-red-600">
                     <Trash2 className="h-3.5 w-3.5" />
                   </Button>
                 </div>

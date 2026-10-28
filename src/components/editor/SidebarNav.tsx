@@ -181,17 +181,17 @@ function SortableSectionNavItem({
     <div
       ref={setNodeRef}
       style={style}
-      className={`group flex items-center justify-between rounded-md px-1.5 py-1.5 text-xs font-medium transition-colors ${
+      className={`group flex items-center justify-between rounded-lg px-2 py-1.5 text-xs font-medium transition-all ${
         isActive
-          ? "bg-blue-600/15 text-blue-400 border border-blue-500/30"
-          : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
+          ? "bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs font-semibold"
+          : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-transparent"
       }`}>
       <button
         type="button"
         {...(isMounted ? attributes : {})}
         {...(isMounted ? listeners : {})}
         title="Drag to reorder section"
-        className="cursor-grab p-1 text-zinc-600 hover:text-zinc-300 active:cursor-grabbing">
+        className="cursor-grab p-1 text-slate-400 hover:text-slate-700 active:cursor-grabbing">
         <GripVertical className="h-3.5 w-3.5" />
       </button>
 
@@ -202,7 +202,7 @@ function SortableSectionNavItem({
         {getSectionIcon(sec.sectionType)}
         <span
           className={`truncate ${
-            !sec.isVisible ? "line-through opacity-50" : ""
+            !sec.isVisible ? "line-through opacity-45" : ""
           }`}>
           {sec.title}
         </span>
@@ -216,11 +216,11 @@ function SortableSectionNavItem({
             e.stopPropagation();
             onToggleVisible(sec.id, !sec.isVisible);
           }}
-          className="p-1 text-zinc-400 hover:text-white">
+          className="rounded p-1 text-slate-500 hover:bg-slate-200 hover:text-slate-900">
           {sec.isVisible ? (
             <Eye className="h-3.5 w-3.5" />
           ) : (
-            <EyeOff className="h-3.5 w-3.5 text-amber-500" />
+            <EyeOff className="h-3.5 w-3.5 text-amber-600" />
           )}
         </button>
         {sec.sectionType !== "SKILLS_LANGUAGES" && (
@@ -231,7 +231,7 @@ function SortableSectionNavItem({
               e.stopPropagation();
               onDelete(sec.id);
             }}
-            className="p-1 text-zinc-400 hover:text-red-400">
+            className="rounded p-1 text-slate-500 hover:bg-red-50 hover:text-red-600">
             <Trash2 className="h-3.5 w-3.5" />
           </button>
         )}
@@ -272,26 +272,28 @@ export function SidebarNav() {
   };
 
   return (
-    <aside className="flex h-full w-64 flex-col border-r border-zinc-800 bg-zinc-950 select-none">
-      <div className="flex items-center justify-between px-3 py-3">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
-          Document Sections
+    <aside className="flex h-full w-64 flex-col border-r border-slate-200 bg-white select-none">
+      <div className="flex items-center justify-between border-b border-slate-100 px-3.5 py-3">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+          Resume Sections
         </span>
-        <span className="text-[10px] text-zinc-500">Drag to reorder</span>
+        <span className="text-[10px] font-medium text-slate-400">
+          Drag ⋮⋮ to sort
+        </span>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-2 space-y-1">
+      <div className="flex-1 overflow-y-auto px-2.5 py-2.5 space-y-1">
         {/* 1. Fixed Header Item */}
         <button
           type="button"
           onClick={() => setActiveSectionId("HEADER")}
-          className={`flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-xs font-medium transition-colors ${
+          className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium transition-all ${
             activeSectionId === "HEADER"
-              ? "bg-blue-600/15 text-blue-400 border border-blue-500/30"
-              : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
+              ? "bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs font-semibold"
+              : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-transparent"
           }`}>
           <User className="h-4 w-4 shrink-0" />
-          <span className="truncate">Header & Contact</span>
+          <span className="truncate">Header & Contact Info</span>
         </button>
 
         {/* 2. Drag-and-Drop Dynamic Sections List */}
@@ -326,15 +328,15 @@ export function SidebarNav() {
             variant="outline"
             size="sm"
             onClick={() => setDrawerOpen(true)}
-            className="w-full justify-start gap-2 border-dashed border-zinc-700 bg-transparent text-xs text-zinc-300 hover:bg-zinc-900 hover:text-white">
+            className="w-full justify-start gap-2 border-dashed border-slate-300 bg-slate-50/70 text-xs font-medium text-slate-700 hover:border-blue-400 hover:bg-blue-50/50 hover:text-blue-700">
             <Plus className="h-3.5 w-3.5" />
-            Add Section
+            Add New Section
           </Button>
 
           <Dialog open={drawerOpen} onOpenChange={setDrawerOpen}>
-            <DialogContent className="max-w-lg bg-zinc-950 border-zinc-800 text-zinc-100">
+            <DialogContent className="max-w-lg bg-white border-slate-200 text-slate-900">
               <DialogHeader>
-                <DialogTitle className="text-base">
+                <DialogTitle className="text-base font-bold text-slate-900">
                   Add Extended Resume / CV Section
                 </DialogTitle>
               </DialogHeader>
@@ -347,12 +349,12 @@ export function SidebarNav() {
                       addSection(item.type, item.defaultTitle, item.variant);
                       setDrawerOpen(false);
                     }}
-                    className="flex flex-col items-start rounded-lg border border-zinc-800 bg-zinc-900/60 p-3 text-left transition hover:border-blue-500/50 hover:bg-zinc-900">
-                    <div className="flex items-center gap-2 font-semibold text-xs text-zinc-100">
+                    className="flex flex-col items-start rounded-lg border border-slate-200 bg-slate-50/60 p-3 text-left transition hover:border-blue-500 hover:bg-blue-50/40">
+                    <div className="flex items-center gap-2 font-semibold text-xs text-slate-900">
                       {getSectionIcon(item.type)}
                       <span>{item.defaultTitle}</span>
                     </div>
-                    <p className="mt-1 text-xs text-zinc-400">
+                    <p className="mt-1 text-xs text-slate-500">
                       {item.description}
                     </p>
                   </button>
@@ -364,17 +366,17 @@ export function SidebarNav() {
       </div>
 
       {/* 4. Bottom Style & Typography Controls Tab */}
-      <div className="border-t border-zinc-800 p-2 space-y-1">
+      <div className="border-t border-slate-200 p-2.5 bg-slate-50/50">
         <button
           type="button"
           onClick={() => setActiveSectionId("STYLE")}
-          className={`flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-xs font-medium transition-colors ${
+          className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium transition-all ${
             activeSectionId === "STYLE"
-              ? "bg-blue-600/15 text-blue-400 border border-blue-500/30"
-              : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
+              ? "bg-blue-600 text-white shadow-xs font-semibold"
+              : "text-slate-700 hover:bg-slate-200/70 hover:text-slate-900"
           }`}>
           <Sliders className="h-4 w-4 shrink-0" />
-          <span>Style & Typography</span>
+          <span>Typography & Page Layout</span>
         </button>
       </div>
     </aside>

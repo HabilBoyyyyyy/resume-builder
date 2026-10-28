@@ -12,6 +12,7 @@ import {
   type PublicationItem,
 } from "@/schemas/resume.schema";
 import {RichTextInput} from "@/components/editor/RichTextInput";
+import {DateRangePicker} from "@/components/editor/DateRangePicker";
 
 interface PublicationsFormProps {
   sectionId: string;
@@ -51,7 +52,7 @@ export function PublicationsForm({sectionId}: PublicationsFormProps) {
         title: "Paper or Research Publication Title",
         authors: "<b>Your Name</b>, Co-Author Name",
         venue: "IEEE Conference / Journal Name",
-        date: "2026",
+        date: "Oct. 2026",
         doiOrUrl: "",
         summary: "",
         isVisible: true,
@@ -71,20 +72,22 @@ export function PublicationsForm({sectionId}: PublicationsFormProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex items-end justify-between gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
         <div className="flex-1 space-y-1.5">
-          <Label className="text-xs text-zinc-300">Section Heading Title</Label>
+          <Label className="text-xs font-semibold text-slate-700">
+            Section Heading Title
+          </Label>
           <Input
             value={section.title}
             onChange={(e) => updateSection(sectionId, {title: e.target.value})}
-            className="bg-zinc-900 border-zinc-800 font-semibold text-zinc-100"
+            className="bg-white border-slate-300 font-bold text-slate-900"
           />
         </div>
         <Button
           type="button"
           size="sm"
           onClick={handleAdd}
-          className="gap-1.5 bg-blue-600 text-xs text-white hover:bg-blue-500">
+          className="h-9 gap-1.5 bg-blue-600 text-xs font-semibold text-white hover:bg-blue-700">
           <Plus className="h-3.5 w-3.5" />
           Add Publication
         </Button>
@@ -94,9 +97,9 @@ export function PublicationsForm({sectionId}: PublicationsFormProps) {
         {items.map((item, idx) => (
           <div
             key={item.id}
-            className="space-y-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
-            <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-              <span className="text-xs font-semibold text-zinc-200">
+            className="space-y-3.5 rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <span className="text-xs font-bold text-slate-800">
                 #{idx + 1} — {item.title || "Untitled Publication"}
               </span>
               <Button
@@ -104,25 +107,27 @@ export function PublicationsForm({sectionId}: PublicationsFormProps) {
                 variant="ghost"
                 size="icon"
                 onClick={() => handleRemove(item.id)}
-                className="h-7 w-7 text-zinc-400 hover:text-red-400">
+                className="h-7 w-7 text-slate-400 hover:bg-red-50 hover:text-red-600">
                 <Trash2 className="h-3.5 w-3.5" />
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
               <div className="space-y-1 sm:col-span-2">
-                <Label className="text-[11px] text-zinc-400">Paper Title</Label>
+                <Label className="text-xs font-medium text-slate-700">
+                  Paper Title
+                </Label>
                 <Input
                   value={item.title}
                   onChange={(e) =>
                     handleUpdate(item.id, {title: e.target.value})
                   }
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
 
               <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">
+                <Label className="text-xs font-medium text-slate-700">
                   Conference / Journal Venue
                 </Label>
                 <Input
@@ -131,26 +136,20 @@ export function PublicationsForm({sectionId}: PublicationsFormProps) {
                     handleUpdate(item.id, {venue: e.target.value})
                   }
                   placeholder="IEEE ICCV 2026"
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
 
-              <div className="space-y-1">
-                <Label className="text-[11px] text-zinc-400">
-                  Publication Date
-                </Label>
-                <Input
-                  value={item.date}
-                  onChange={(e) =>
-                    handleUpdate(item.id, {date: e.target.value})
-                  }
-                  placeholder="Oct 2026"
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
-                />
-              </div>
+              {/* Single-Date Calendar Picker */}
+              <DateRangePicker
+                label="Publication Date (Click to Pick)"
+                mode="single"
+                value={item.date}
+                onChange={(val) => handleUpdate(item.id, {date: val})}
+              />
 
               <div className="space-y-1 sm:col-span-2">
-                <Label className="text-[11px] text-zinc-400">
+                <Label className="text-xs font-medium text-slate-700">
                   Authors (Use Bold button to highlight your own name)
                 </Label>
                 <RichTextInput
@@ -161,7 +160,7 @@ export function PublicationsForm({sectionId}: PublicationsFormProps) {
               </div>
 
               <div className="space-y-1 sm:col-span-2">
-                <Label className="text-[11px] text-zinc-400">
+                <Label className="text-xs font-medium text-slate-700">
                   DOI or Paper URL (Optional)
                 </Label>
                 <Input
@@ -170,7 +169,7 @@ export function PublicationsForm({sectionId}: PublicationsFormProps) {
                     handleUpdate(item.id, {doiOrUrl: e.target.value})
                   }
                   placeholder="https://doi.org/10.1109/..."
-                  className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                  className="h-9 bg-white border-slate-300 text-xs text-slate-900"
                 />
               </div>
             </div>

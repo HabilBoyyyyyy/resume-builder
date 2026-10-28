@@ -64,20 +64,22 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex items-end justify-between gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
         <div className="flex-1 space-y-1.5">
-          <Label className="text-xs text-zinc-300">Section Heading Title</Label>
+          <Label className="text-xs font-semibold text-slate-700">
+            Section Heading Title
+          </Label>
           <Input
             value={section.title}
             onChange={(e) => updateSection(sectionId, {title: e.target.value})}
-            className="bg-zinc-900 border-zinc-800 font-semibold text-zinc-100"
+            className="bg-white border-slate-300 font-bold text-slate-900"
           />
         </div>
         <Button
           type="button"
           size="sm"
           onClick={() => addSkillCategory("New Skill Category")}
-          className="gap-1.5 bg-blue-600 text-xs text-white hover:bg-blue-500">
+          className="h-9 gap-1.5 bg-blue-600 text-xs font-semibold text-white hover:bg-blue-700">
           <Plus className="h-3.5 w-3.5" />
           Add Skill Category
         </Button>
@@ -87,14 +89,14 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
         {sortedCategories.map((cat, idx) => (
           <div
             key={cat.id}
-            className="space-y-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-4">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800 pb-3">
+            className="space-y-3.5 rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
               <Input
                 value={cat.name}
                 onChange={(e) =>
                   updateSkillCategory(cat.id, {name: e.target.value})
                 }
-                className="h-8 max-w-[220px] bg-zinc-950 border-zinc-800 text-xs font-semibold"
+                className="h-8 max-w-[220px] bg-white border-slate-300 text-xs font-bold text-slate-900"
               />
 
               <div className="flex items-center gap-2">
@@ -105,7 +107,7 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                       displayMode: e.target.value as SkillDisplayMode,
                     })
                   }
-                  className="h-8 rounded-md border border-zinc-800 bg-zinc-950 px-2 text-xs text-zinc-200">
+                  className="h-8 rounded-md border border-slate-300 bg-white px-2 text-xs font-medium text-slate-700">
                   <option value="INLINE_COMMA">Classic Inline</option>
                   <option value="ALIGNED_TABLE">Aligned 2-Col Table</option>
                   <option value="MULTI_COLUMN_GRID">2-Column Grid</option>
@@ -114,7 +116,7 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                   </option>
                 </select>
 
-                <div className="flex items-center gap-1.5 text-xs text-zinc-400">
+                <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600">
                   <Switch
                     checked={cat.showProficiency}
                     onCheckedChange={(checked) =>
@@ -132,7 +134,7 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                   onClick={() =>
                     reorderSkillCategories(cat.id, sortedCategories[idx - 1].id)
                   }
-                  className="h-7 w-7 text-zinc-400 hover:text-white disabled:opacity-30"
+                  className="h-7 w-7 text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30"
                   title="Move Category Up">
                   <ArrowUp className="h-3.5 w-3.5" />
                 </Button>
@@ -145,7 +147,7 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                   onClick={() =>
                     reorderSkillCategories(cat.id, sortedCategories[idx + 1].id)
                   }
-                  className="h-7 w-7 text-zinc-400 hover:text-white disabled:opacity-30"
+                  className="h-7 w-7 text-slate-500 hover:bg-slate-100 hover:text-slate-900 disabled:opacity-30"
                   title="Move Category Down">
                   <ArrowDown className="h-3.5 w-3.5" />
                 </Button>
@@ -155,7 +157,7 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                   variant="ghost"
                   size="icon"
                   onClick={() => removeSkillCategory(cat.id)}
-                  className="h-7 w-7 text-zinc-400 hover:text-red-400"
+                  className="h-7 w-7 text-slate-400 hover:bg-red-50 hover:text-red-600"
                   title="Delete Category">
                   <Trash2 className="h-3.5 w-3.5" />
                 </Button>
@@ -167,10 +169,10 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
               {cat.items.map((item) => (
                 <div
                   key={item.id}
-                  className={`flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs transition ${
+                  className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs transition ${
                     item.isHighlighted
-                      ? "border-blue-500/60 bg-blue-950/40 text-blue-200 font-semibold"
-                      : "border-zinc-800 bg-zinc-950 text-zinc-200"
+                      ? "border-blue-500 bg-blue-50 text-blue-900 font-bold shadow-2xs"
+                      : "border-slate-200 bg-slate-50 text-slate-800 font-medium"
                   } ${!item.isVisible ? "opacity-45" : ""}`}>
                   <span>{item.name}</span>
 
@@ -184,7 +186,7 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                         })
                       }
                       placeholder="Level..."
-                      className="w-20 rounded bg-zinc-900 px-1 py-0.5 text-[10px] text-zinc-300 focus:outline-none"
+                      className="w-24 rounded border border-slate-300 bg-white px-1.5 py-0.5 text-[10px] font-normal text-slate-700 focus:border-blue-500 focus:outline-none"
                     />
                   )}
 
@@ -196,8 +198,8 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                         isHighlighted: !item.isHighlighted,
                       })
                     }
-                    className={`p-0.5 rounded hover:bg-zinc-800 ${
-                      item.isHighlighted ? "text-blue-400" : "text-zinc-500"
+                    className={`p-0.5 rounded hover:bg-slate-200 ${
+                      item.isHighlighted ? "text-blue-600" : "text-slate-400"
                     }`}>
                     <Bold className="h-3 w-3" />
                   </button>
@@ -210,11 +212,11 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                         isVisible: !item.isVisible,
                       })
                     }
-                    className="p-0.5 rounded text-zinc-500 hover:text-white">
+                    className="p-0.5 rounded text-slate-400 hover:text-slate-800">
                     {item.isVisible ? (
                       <Eye className="h-3 w-3" />
                     ) : (
-                      <EyeOff className="h-3 w-3 text-amber-500" />
+                      <EyeOff className="h-3 w-3 text-amber-600" />
                     )}
                   </button>
 
@@ -222,7 +224,7 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                     type="button"
                     title="Remove Skill"
                     onClick={() => removeSkillItem(cat.id, item.id)}
-                    className="p-0.5 rounded text-zinc-500 hover:text-red-400">
+                    className="p-0.5 rounded text-slate-400 hover:text-red-600 font-bold">
                     ×
                   </button>
                 </div>
@@ -246,14 +248,14 @@ export function SkillsMatrixForm({sectionId}: SkillsMatrixFormProps) {
                   }
                 }}
                 placeholder="Type a skill (e.g. FastAPI, Docker) and press Enter..."
-                className="h-8 bg-zinc-950 border-zinc-800 text-xs"
+                className="h-8 bg-white border-slate-300 text-xs text-slate-900"
               />
               <Button
                 type="button"
-                variant="secondary"
+                variant="outline"
                 size="sm"
                 onClick={() => handleAddSkillSubmit(cat.id)}
-                className="h-8 text-xs">
+                className="h-8 border-slate-300 bg-slate-50 text-xs font-semibold text-slate-700 hover:bg-slate-100">
                 Add
               </Button>
             </div>

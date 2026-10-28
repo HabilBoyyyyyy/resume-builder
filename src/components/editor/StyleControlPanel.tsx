@@ -33,25 +33,25 @@ export function StyleControlPanel() {
       baseFontSizePt: 10,
       nameFontSizePt: 18,
       sectionFontSizePt: 11,
-      lineHeight: 1.2,
+      lineHeight: 1.18,
       marginXIn: 0.5,
       marginYIn: 0.45,
-      sectionGapPt: 8,
-      itemGapPt: 5,
+      sectionGapPt: 7,
+      itemGapPt: 4.5,
       justifyText: false,
     });
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
         <div>
-          <h2 className="text-base font-semibold text-zinc-100">
-            Typography, Layout & Spacing Tokens
+          <h2 className="text-base font-bold text-slate-900">
+            Typography, Layout & Spacing
           </h2>
-          <p className="text-xs text-zinc-400">
-            Customize density and paper dimensions while preserving ATS reading
-            order.
+          <p className="text-xs text-slate-500">
+            Customize document density and paper dimensions while preserving ATS
+            reading order.
           </p>
         </div>
 
@@ -61,26 +61,28 @@ export function StyleControlPanel() {
             variant="outline"
             size="sm"
             onClick={handleOnePageFitter}
-            className="gap-1.5 border-blue-500/40 bg-blue-950/30 text-xs text-blue-300 hover:bg-blue-900/40">
+            className="gap-1.5 border-blue-300 bg-blue-50 text-xs font-semibold text-blue-700 hover:bg-blue-100">
             <Minimize2 className="h-3.5 w-3.5" />
             1-Page Dense Fit
           </Button>
           <Button
             type="button"
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={handleResetDefault}
-            className="gap-1 text-xs text-zinc-400 hover:text-white">
+            className="gap-1 border-slate-300 bg-white text-xs text-slate-600 hover:bg-slate-100">
             <RotateCcw className="h-3.5 w-3.5" />
             Reset
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 rounded-xl border border-slate-200 bg-white p-5 shadow-2xs sm:grid-cols-2">
         {/* Paper Size */}
         <div className="space-y-1.5">
-          <Label className="text-xs text-zinc-300">Paper Size</Label>
+          <Label className="text-xs font-semibold text-slate-700">
+            Paper Size
+          </Label>
           <select
             value={styleConfig.paperSize}
             onChange={(e) =>
@@ -88,7 +90,7 @@ export function StyleControlPanel() {
                 paperSize: e.target.value as StyleConfig["paperSize"],
               })
             }
-            className="h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 text-xs text-zinc-100">
+            className="h-9 w-full rounded-md border border-slate-300 bg-white px-3 text-xs font-medium text-slate-900">
             <option value="A4">A4 (210mm × 297mm — International)</option>
             <option value="LETTER">
               US Letter (8.5in × 11in — North America)
@@ -98,7 +100,9 @@ export function StyleControlPanel() {
 
         {/* Font Family */}
         <div className="space-y-1.5">
-          <Label className="text-xs text-zinc-300">Primary Document Font</Label>
+          <Label className="text-xs font-semibold text-slate-700">
+            Primary Document Font
+          </Label>
           <select
             value={styleConfig.fontFamily}
             onChange={(e) =>
@@ -106,7 +110,7 @@ export function StyleControlPanel() {
                 fontFamily: e.target.value as StyleConfig["fontFamily"],
               })
             }
-            className="h-9 w-full rounded-md border border-zinc-800 bg-zinc-900 px-3 text-xs text-zinc-100">
+            className="h-9 w-full rounded-md border border-slate-300 bg-white px-3 text-xs font-medium text-slate-900">
             <option value="Times New Roman">
               Times New Roman (Classic Serif)
             </option>
@@ -121,8 +125,10 @@ export function StyleControlPanel() {
         {/* Base Font Size */}
         <div className="space-y-1.5">
           <div className="flex justify-between text-xs">
-            <Label className="text-zinc-300">Body Font Size</Label>
-            <span className="font-mono text-zinc-400">
+            <Label className="font-semibold text-slate-700">
+              Body Font Size
+            </Label>
+            <span className="font-mono font-semibold text-blue-600">
               {styleConfig.baseFontSizePt}pt
             </span>
           </div>
@@ -142,8 +148,8 @@ export function StyleControlPanel() {
         {/* Line Height */}
         <div className="space-y-1.5">
           <div className="flex justify-between text-xs">
-            <Label className="text-zinc-300">Line Height</Label>
-            <span className="font-mono text-zinc-400">
+            <Label className="font-semibold text-slate-700">Line Height</Label>
+            <span className="font-mono font-semibold text-blue-600">
               {styleConfig.lineHeight}
             </span>
           </div>
@@ -163,8 +169,10 @@ export function StyleControlPanel() {
         {/* Horizontal Margin */}
         <div className="space-y-1.5">
           <div className="flex justify-between text-xs">
-            <Label className="text-zinc-300">Left / Right Margin</Label>
-            <span className="font-mono text-zinc-400">
+            <Label className="font-semibold text-slate-700">
+              Left / Right Margin
+            </Label>
+            <span className="font-mono font-semibold text-blue-600">
               {styleConfig.marginXIn} in
             </span>
           </div>
@@ -184,8 +192,10 @@ export function StyleControlPanel() {
         {/* Vertical Margin */}
         <div className="space-y-1.5">
           <div className="flex justify-between text-xs">
-            <Label className="text-zinc-300">Top / Bottom Margin</Label>
-            <span className="font-mono text-zinc-400">
+            <Label className="font-semibold text-slate-700">
+              Top / Bottom Margin
+            </Label>
+            <span className="font-mono font-semibold text-blue-600">
               {styleConfig.marginYIn} in
             </span>
           </div>
@@ -205,8 +215,10 @@ export function StyleControlPanel() {
         {/* Section Gap */}
         <div className="space-y-1.5">
           <div className="flex justify-between text-xs">
-            <Label className="text-zinc-300">Section Vertical Gap</Label>
-            <span className="font-mono text-zinc-400">
+            <Label className="font-semibold text-slate-700">
+              Section Vertical Gap
+            </Label>
+            <span className="font-mono font-semibold text-blue-600">
               {styleConfig.sectionGapPt}pt
             </span>
           </div>
@@ -226,8 +238,10 @@ export function StyleControlPanel() {
         {/* Entry Item Gap */}
         <div className="space-y-1.5">
           <div className="flex justify-between text-xs">
-            <Label className="text-zinc-300">Entry Item Gap</Label>
-            <span className="font-mono text-zinc-400">
+            <Label className="font-semibold text-slate-700">
+              Entry Item Gap
+            </Label>
+            <span className="font-mono font-semibold text-blue-600">
               {styleConfig.itemGapPt}pt
             </span>
           </div>
@@ -245,12 +259,12 @@ export function StyleControlPanel() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900/50 p-3">
+      <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-2xs">
         <div>
-          <div className="text-xs font-medium text-zinc-200">
+          <div className="text-xs font-bold text-slate-800">
             Justify Bullet & Summary Text
           </div>
-          <div className="text-[11px] text-zinc-400">
+          <div className="text-[11px] text-slate-500">
             Aligns both left and right edges of paragraph and bullet text.
           </div>
         </div>
