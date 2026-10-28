@@ -95,7 +95,7 @@ export function ResumePreviewViewport() {
             className="h-7 gap-1.5 border-slate-300 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50"
             onClick={handleDownloadPdf}>
             <Download className="h-3.5 w-3.5" />
-            Save as Multi-Page PDF
+            Save as PDF
           </Button>
         </div>
       </div>

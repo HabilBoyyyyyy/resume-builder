@@ -23,7 +23,6 @@ const FONT_STACK_MAP: Record<string, string> = {
   "CMU Serif": "'CMU Serif', 'Latin Modern Roman', 'Times New Roman', serif",
 };
 
-// 1 inch = 96 CSS pixels; A4 height (297mm) = 1122.52px; US Letter height (11in) = 1056px
 const A4_HEIGHT_PX = 1122.52;
 const LETTER_HEIGHT_PX = 1056;
 
@@ -40,7 +39,6 @@ export function ResumeDocument({
   const pageHeight = isLetter ? "11in" : "297mm";
   const singlePageHeightPx = isLetter ? LETTER_HEIGHT_PX : A4_HEIGHT_PX;
 
-  // Measure live content height to calculate how many pages the resume spans
   useEffect(() => {
     const el = articleRef.current;
     if (!el) return;
@@ -82,13 +80,13 @@ export function ResumeDocument({
     .filter((s) => s.isVisible)
     .sort((a, b) => a.sortOrder - b.sortOrder);
 
-  // Dynamic @page CSS rule so every printed PDF page (Page 1, Page 2, Page 3...)
-  // has exact A4/Letter dimensions and repeating top/bottom/left/right margins.
+  // Setting @page margin: 0 !important forces the browser to hide the Timestamp,
+  // Document Title, URL (https://typecv.vercel.app), and 1/1 page numbers!
   const dynamicPrintPageCss = `
     @media print {
       @page {
         size: ${isLetter ? "letter" : "A4"} portrait;
-        margin: ${styleConfig.marginYIn}in ${styleConfig.marginXIn}in;
+        margin: 0mm !important;
       }
     }
   `;
@@ -122,59 +120,87 @@ export function ResumeDocument({
             );
           })}
 
-        {/* 1. Header Block */}
-        <HeaderSection headerData={headerData} />
+        {/* Repeating Print Table Wrapper:
+            In @media print, <thead> repeats at the top of every page and <tfoot> repeats
+            at the bottom of every page, giving us multi-page top/bottom margins while
+            keeping @page { margin: 0 } so browser timestamps/URLs never appear! */}
+        <table className="resume-print-table">
+          <thead className="resume-print-margin-spacer">
+            <tr>
+              <td>
+                <div style={{height: "var(--resume-margin-y)"}} />
+              </td>
+            </tr>
+          </thead>
 
-        {/* 2. Polymorphic Sections */}
-        {visibleSections.map((section) => {
-          if (section.sectionType === "SKILLS_LANGUAGES") {
-            return (
-              <SkillsSection
-                key={section.id}
-                title={section.title}
-                categories={skillCategories}
-              />
-            );
-          }
+          <tbody>
+            <tr>
+              <td className="resume-print-body-cell">
+                {/* 1. Header Block */}
+                <HeaderSection headerData={headerData} />
 
-          if (
-            section.sectionType === "SUMMARY" ||
-            section.layoutVariant === "PARAGRAPH"
-          ) {
-            return (
-              <SummarySection
-                key={section.id}
-                title={section.title}
-                content={section.content}
-                justifyText={styleConfig.justifyText}
-              />
-            );
-          }
+                {/* 2. Polymorphic Sections */}
+                {visibleSections.map((section) => {
+                  if (section.sectionType === "SKILLS_LANGUAGES") {
+                    return (
+                      <SkillsSection
+                        key={section.id}
+                        title={section.title}
+                        categories={skillCategories}
+                      />
+                    );
+                  }
 
-          if (
-            section.sectionType === "CERTIFICATIONS" ||
-            section.sectionType === "HONORS_AWARDS" ||
-            section.layoutVariant === "COMPACT_ROW"
-          ) {
-            return (
-              <CompactListSection
-                key={section.id}
-                title={section.title}
-                content={section.content}
-              />
-            );
-          }
+                  if (
+                    section.sectionType === "SUMMARY" ||
+                    section.layoutVariant === "PARAGRAPH"
+                  ) {
+                    return (
+                      <SummarySection
+                        key={section.id}
+                        title={section.title}
+                        content={section.content}
+                        justifyText={styleConfig.justifyText}
+                      />
+                    );
+                  }
 
-          return (
-            <StandardEntrySection
-              key={section.id}
-              sectionType={section.sectionType}
-              title={section.title}
-              content={section.content}
-              justifyText={styleConfig.justifyText}
-            />
-          );
-        })}
+                  if (
+                    section.sectionType === "CERTIFICATIONS" ||
+                    section.sectionType === "HONORS_AWARDS" ||
+                    section.layoutVariant === "COMPACT_ROW"
+                  ) {
+                    return (
+                      <CompactListSection
+                        key={section.id}
+                        title={section.title}
+                        content={section.content}
+                      />
+                    );
+                  }
+
+                  return (
+                    <StandardEntrySection
+                      key={section.id}
+                      sectionType={section.sectionType}
+                      title={section.title}
+                      content={section.content}
+                      justifyText={styleConfig.justifyText}
+                    />
+                  );
+                })}
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot className="resume-print-margin-spacer">
+            <tr>
+              <td>
+                <div style={{height: "var(--resume-margin-y)"}} />
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </article>
     </>
   );

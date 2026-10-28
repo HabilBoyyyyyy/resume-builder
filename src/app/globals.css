@@ -161,6 +161,22 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.resume-print-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.resume-print-body-cell {
+  padding: 0;
+  vertical-align: top;
+}
+
+/* On screen, padding is already applied by .resume-canvas, so hide print spacers */
+.resume-print-margin-spacer {
+  display: none;
+}
+
 /* Ensure links in the resume are black, clean, and clickable (Design.md Section 1) */
 .resume-canvas a {
   color: #000000 !important;
@@ -218,6 +234,10 @@
 
 /* Native Multi-Page Vector Print Rules (Rules.md Section 1.1) */
 @media print {
+  @page {
+    margin: 0mm !important;
+  }
+
   html,
   body {
     background: #ffffff !important;
@@ -235,7 +255,6 @@
     display: none !important;
   }
 
-  /* Unlock all parent flex/scroll containers so Page 2, 3, etc. flow naturally */
   .print-unlock {
     display: block !important;
     height: auto !important;
@@ -254,7 +273,15 @@
     margin: 0 !important;
     width: 100% !important;
     min-height: 0 !important;
-    /* Padding is handled by @page margin during print so Page 2+ also have top/bottom margins */
-    padding: 0 !important;
+    /* Keep left/right margin padding; top/bottom repeating margins are handled by thead/tfoot */
+    padding: 0 var(--resume-margin-x) !important;
+  }
+
+  thead.resume-print-margin-spacer {
+    display: table-header-group !important;
+  }
+
+  tfoot.resume-print-margin-spacer {
+    display: table-footer-group !important;
   }
 }
