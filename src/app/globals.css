@@ -130,7 +130,7 @@
 }
 
 /* ==========================================================================
-   RESUME CANVAS & DETERMINISTIC PRINT ENGINE (Scoped to .resume-canvas)
+   RESUME CANVAS & DETERMINISTIC MULTI-PAGE PRINT ENGINE (Scoped to .resume-canvas)
    Adheres strictly to Rules.md Section 1 & Design.md Section 3.2
    ========================================================================== */
 
@@ -156,6 +156,7 @@
   background-color: #ffffff !important;
   color: #000000 !important;
   box-sizing: border-box;
+  position: relative;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -181,11 +182,15 @@
   margin-bottom: 6px;
   margin-top: 0;
   color: #000000;
+  break-after: avoid;
+  page-break-after: avoid;
 }
 
 /* Section Container (Rules.md Section 5.3: Never break-inside avoid on entire section) */
 .resume-section {
   margin-bottom: var(--resume-section-gap);
+  break-inside: auto;
+  page-break-inside: auto;
 }
 
 /* Individual Entry Item (Rules.md Section 5.3: Always avoid page-break inside an entry) */
@@ -211,18 +216,17 @@
   line-height: var(--resume-line-height);
 }
 
-/* Native Vector Print Rules (Rules.md Section 1.1) */
+/* Native Multi-Page Vector Print Rules (Rules.md Section 1.1) */
 @media print {
-  @page {
-    margin: 0;
-  }
-
   html,
   body {
     background: #ffffff !important;
     color: #000000 !important;
     margin: 0 !important;
     padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -231,10 +235,26 @@
     display: none !important;
   }
 
+  /* Unlock all parent flex/scroll containers so Page 2, 3, etc. flow naturally */
+  .print-unlock {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transform: none !important;
+    background: transparent !important;
+  }
+
   .resume-canvas {
     box-shadow: none !important;
     margin: 0 !important;
     width: 100% !important;
-    min-height: auto !important;
+    min-height: 0 !important;
+    /* Padding is handled by @page margin during print so Page 2+ also have top/bottom margins */
+    padding: 0 !important;
   }
 }

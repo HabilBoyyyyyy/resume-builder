@@ -62,6 +62,23 @@ export default function ResumeBuilderWorkspacePage() {
     URL.revokeObjectURL(url);
   };
 
+  const handleDownloadVectorPdf = () => {
+    const fullState = useResumeStore.getState().resume;
+    const previousTitle = document.title;
+    const candidateName = (
+      fullState.headerData.fullName ||
+      fullState.title ||
+      "Resume"
+    )
+      .trim()
+      .replace(/\s+/g, "_");
+    document.title = `${candidateName}_Resume`;
+    window.print();
+    setTimeout(() => {
+      document.title = previousTitle;
+    }, 1000);
+  };
+
   const handleImportJsonChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -110,7 +127,7 @@ export default function ResumeBuilderWorkspacePage() {
   };
 
   return (
-    <div className="flex h-screen w-screen flex-col overflow-hidden bg-[#F8FAFC] text-slate-900">
+    <div className="print-unlock flex h-screen w-screen flex-col overflow-hidden bg-[#F8FAFC] text-slate-900">
       <input
         ref={fileInputRef}
         type="file"
@@ -207,16 +224,16 @@ export default function ResumeBuilderWorkspacePage() {
           <Button
             type="button"
             size="sm"
-            onClick={() => window.print()}
+            onClick={handleDownloadVectorPdf}
             className="h-8 gap-1.5 bg-blue-600 text-xs font-semibold text-white shadow-xs hover:bg-blue-700">
             <Printer className="h-3.5 w-3.5" />
-            Export Vector PDF
+            Download PDF
           </Button>
         </div>
       </header>
 
       {/* Main 3-Pane Split Workspace */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="print-unlock flex flex-1 overflow-hidden">
         {/* Pane 1: Section Navigation Rail */}
         <div className="no-print h-full">
           <SidebarNav />
@@ -228,7 +245,7 @@ export default function ResumeBuilderWorkspacePage() {
         </main>
 
         {/* Pane 3: Live Paginated Resume Preview Canvas */}
-        <section className="flex-1 h-full overflow-hidden">
+        <section className="print-unlock flex-1 h-full overflow-hidden">
           <ResumePreviewViewport />
         </section>
       </div>
