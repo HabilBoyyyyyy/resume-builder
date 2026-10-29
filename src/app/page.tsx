@@ -3,7 +3,6 @@
 
 import React, {useCallback, useRef} from "react";
 import {
-  FileText,
   Undo2,
   Redo2,
   Download,
@@ -140,12 +139,19 @@ export default function ResumeBuilderWorkspacePage() {
       {/* Top Application Bar */}
       <header className="no-print flex h-14 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-4 shadow-2xs">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white shadow-xs">
-            <FileText className="h-4 w-4" />
+          <img
+            src="/logo.png"
+            alt="TypeCV Logo"
+            className="h-8 w-auto shrink-0 select-none object-contain drop-shadow-2xs"
+          />
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm font-bold tracking-tight text-slate-900">
+              TypeCV
+            </span>
+            <span className="hidden sm:inline-flex items-center rounded-md bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 border border-blue-200">
+              ATS
+            </span>
           </div>
-          <span className="text-sm font-bold tracking-tight text-slate-900">
-            ATS Resume Builder
-          </span>
           <span className="text-slate-300">/</span>
           <Input
             value={resumeTitle}

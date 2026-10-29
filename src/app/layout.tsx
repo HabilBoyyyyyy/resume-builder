@@ -14,9 +14,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ATS-First Technical Resume & CV Builder",
+  title: "TypeCV - ATS-First Technical Resume & CV Builder",
   description:
     "High-density, single-column, ATS-compliant technical resume and CV builder.",
+  icons: {
+    icon: [
+      {url: "/favicon.ico"},
+      {url: "/icon.png", type: "image/png", sizes: "512x512"},
+    ],
+    apple: [{url: "/apple-icon.png", sizes: "180x180", type: "image/png"}],
+  },
 };
 
 export default function RootLayout({
