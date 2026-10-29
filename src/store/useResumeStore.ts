@@ -136,6 +136,21 @@ export const useResumeStore = create<ResumeStoreState>()(
         addSection: (sectionType, title, layoutVariant = "STANDARD") =>
           set(
             produce((draft: ResumeStoreState) => {
+              // Guard: Disallow duplicate section types except for CUSTOM sections
+              if (
+                sectionType !== "CUSTOM" &&
+                draft.resume.sections.some((s) => s.sectionType === sectionType)
+              ) {
+                // Focus existing section if user somehow triggers duplicate
+                const existing = draft.resume.sections.find(
+                  (s) => s.sectionType === sectionType,
+                );
+                if (existing) {
+                  draft.activeSectionId = existing.id;
+                }
+                return;
+              }
+
               const newId = crypto.randomUUID();
               draft.resume.sections.push({
                 id: newId,

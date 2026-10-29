@@ -36,6 +36,7 @@ import {
   EyeOff,
   Trash2,
   GripVertical,
+  Check,
 } from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {
@@ -75,6 +76,12 @@ const SECTION_LIBRARY: Array<{
     defaultTitle: "EDUCATION",
     variant: "STANDARD",
     description: "Institution, Degree, GPA, Coursework, and Honors.",
+  },
+  {
+    type: "SKILLS_LANGUAGES",
+    defaultTitle: "SKILLS & LANGUAGES",
+    variant: "STANDARD",
+    description: "Categorized technical skills, tools, and languages.",
   },
   {
     type: "LEADERSHIP_ACTIVITY",
@@ -341,24 +348,48 @@ export function SidebarNav() {
                 </DialogTitle>
               </DialogHeader>
               <div className="grid grid-cols-1 gap-2 max-h-[65vh] overflow-y-auto pr-1 pt-2">
-                {SECTION_LIBRARY.map((item) => (
-                  <button
-                    key={`${item.type}-${item.defaultTitle}`}
-                    type="button"
-                    onClick={() => {
-                      addSection(item.type, item.defaultTitle, item.variant);
-                      setDrawerOpen(false);
-                    }}
-                    className="flex flex-col items-start rounded-lg border border-slate-200 bg-slate-50/60 p-3 text-left transition hover:border-blue-500 hover:bg-blue-50/40">
-                    <div className="flex items-center gap-2 font-semibold text-xs text-slate-900">
-                      {getSectionIcon(item.type)}
-                      <span>{item.defaultTitle}</span>
-                    </div>
-                    <p className="mt-1 text-xs text-slate-500">
-                      {item.description}
-                    </p>
-                  </button>
-                ))}
+                {SECTION_LIBRARY.map((item) => {
+                  const isAlreadyAdded =
+                    item.type !== "CUSTOM" &&
+                    sections.some((s) => s.sectionType === item.type);
+
+                  return (
+                    <button
+                      key={`${item.type}-${item.defaultTitle}`}
+                      type="button"
+                      disabled={isAlreadyAdded}
+                      onClick={() => {
+                        if (isAlreadyAdded) return;
+                        addSection(item.type, item.defaultTitle, item.variant);
+                        setDrawerOpen(false);
+                      }}
+                      className={`flex flex-col items-start rounded-lg border p-3 text-left transition ${
+                        isAlreadyAdded
+                          ? "cursor-not-allowed border-slate-200 bg-slate-100/60 opacity-60 dark:bg-slate-800/40"
+                          : "border-slate-200 bg-slate-50/60 hover:border-blue-500 hover:bg-blue-50/40 cursor-pointer"
+                      }`}>
+                      <div className="flex w-full items-center justify-between">
+                        <div className="flex items-center gap-2 font-semibold text-xs text-slate-900">
+                          {getSectionIcon(item.type)}
+                          <span>{item.defaultTitle}</span>
+                        </div>
+                        {isAlreadyAdded ? (
+                          <span className="flex items-center gap-1 rounded-full bg-slate-200/80 px-2 py-0.5 text-[10px] font-semibold text-slate-600 dark:bg-slate-700 dark:text-slate-300">
+                            <Check className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                            Added
+                          </span>
+                        ) : item.type === "CUSTOM" ? (
+                          <span className="rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-medium text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200/60 dark:border-blue-800/60">
+                            Multiple Allowed
+                          </span>
+                        ) : null}
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {item.description}
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
             </DialogContent>
           </Dialog>
