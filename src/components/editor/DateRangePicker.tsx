@@ -208,7 +208,7 @@ export function DateRangePicker({
 
       {/* Interactive Calendar Popover */}
       {isOpen && (
-        <div className="absolute right-0 top-16 z-50 w-76 rounded-xl border border-slate-200 bg-white p-3.5 shadow-xl ring-1 ring-slate-900/5">
+        <div className="absolute right-0 top-16 z-50 w-76 max-w-[calc(100vw-2rem)] rounded-xl border border-slate-200 bg-white p-3.5 shadow-xl ring-1 ring-slate-900/5">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-2.5">
             <span className="text-xs font-semibold text-slate-800">

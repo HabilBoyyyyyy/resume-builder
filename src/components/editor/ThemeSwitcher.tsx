@@ -68,7 +68,7 @@ export function ThemeSwitcher() {
         variant="outline"
         size="sm"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="h-8 gap-1.5 border-slate-300 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+        className="h-8 gap-1 sm:gap-1.5 border-slate-300 bg-white px-2 sm:px-2.5 text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors shrink-0"
         title="Change workspace color theme (Eye Care)">
         <span className="flex items-center text-amber-700 dark:text-blue-400">
           {getThemeIcon(currentTheme)}
@@ -84,7 +84,7 @@ export function ThemeSwitcher() {
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 top-10 z-50 w-72 rounded-xl border border-slate-200 bg-white p-2 shadow-xl ring-1 ring-slate-900/5 animate-in fade-in-0 zoom-in-95 duration-100">
+        <div className="absolute right-0 top-10 z-50 w-72 max-w-[calc(100vw-1.5rem)] rounded-xl border border-slate-200 bg-white p-2 shadow-xl ring-1 ring-slate-900/5 animate-in fade-in-0 zoom-in-95 duration-100">
           <div className="border-b border-slate-100 px-2.5 pb-2 pt-1 mb-1.5">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">

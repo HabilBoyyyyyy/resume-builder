@@ -32,15 +32,16 @@ export function AtsCheckerModal() {
         variant="outline"
         size="sm"
         onClick={() => setOpen(true)}
-        className="h-8 gap-1.5 border-slate-300 bg-white text-xs font-medium text-slate-700 hover:bg-slate-50">
-        <ShieldCheck className="h-3.5 w-3.5 text-blue-600" />
-        ATS Score:{" "}
+        className="h-8 gap-1 sm:gap-1.5 border-slate-300 bg-white px-2 sm:px-2.5 text-xs font-medium text-slate-700 hover:bg-slate-50 shrink-0">
+        <ShieldCheck className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+        <span className="hidden sm:inline">ATS Score: </span>
+        <span className="sm:hidden font-medium text-[11px]">ATS </span>
         <span className="font-mono font-bold text-slate-900">
           {report.score}%
         </span>
       </Button>
 
-      <DialogContent className="max-w-md bg-white border-slate-200 text-slate-900">
+      <DialogContent className="max-w-[calc(100vw-2rem)] sm:max-w-md bg-white border-slate-200 text-slate-900">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-base font-bold text-slate-900">
             <ShieldCheck className="h-5 w-5 text-blue-600" />

@@ -247,7 +247,12 @@ function SortableSectionNavItem({
   );
 }
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  className?: string;
+  onSelectSection?: (id: string) => void;
+}
+
+export function SidebarNav({className, onSelectSection}: SidebarNavProps = {}) {
   const sections = useResumeStore((state) => state.resume.sections);
   const activeSectionId = useResumeStore((state) => state.activeSectionId);
   const setActiveSectionId = useResumeStore(
@@ -257,6 +262,11 @@ export function SidebarNav() {
   const updateSection = useResumeStore((state) => state.updateSection);
   const removeSection = useResumeStore((state) => state.removeSection);
   const reorderSections = useResumeStore((state) => state.reorderSections);
+
+  const handleSelect = (id: string) => {
+    setActiveSectionId(id);
+    onSelectSection?.(id);
+  };
 
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -279,7 +289,7 @@ export function SidebarNav() {
   };
 
   return (
-    <aside className="flex h-full w-64 flex-col border-r border-slate-200 bg-white select-none">
+    <aside className={`flex h-full flex-col border-r border-slate-200 bg-white select-none ${className || "w-64"}`}>
       <div className="flex items-center justify-between border-b border-slate-100 px-3.5 py-3">
         <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
           Resume Sections
@@ -293,7 +303,7 @@ export function SidebarNav() {
         {/* 1. Fixed Header Item */}
         <button
           type="button"
-          onClick={() => setActiveSectionId("HEADER")}
+          onClick={() => handleSelect("HEADER")}
           className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium transition-all ${
             activeSectionId === "HEADER"
               ? "bg-blue-50 text-blue-700 border border-blue-200 shadow-2xs font-semibold"
@@ -317,7 +327,7 @@ export function SidebarNav() {
                   key={sec.id}
                   sec={sec}
                   isActive={activeSectionId === sec.id}
-                  onSelect={setActiveSectionId}
+                  onSelect={handleSelect}
                   onToggleVisible={(id, next) =>
                     updateSection(id, {isVisible: next})
                   }
@@ -341,7 +351,7 @@ export function SidebarNav() {
           </Button>
 
           <Dialog open={drawerOpen} onOpenChange={setDrawerOpen}>
-            <DialogContent className="max-w-lg bg-white border-slate-200 text-slate-900">
+            <DialogContent className="max-w-[calc(100vw-2rem)] sm:max-w-lg bg-white border-slate-200 text-slate-900">
               <DialogHeader>
                 <DialogTitle className="text-base font-bold text-slate-900">
                   Add Extended Resume / CV Section
@@ -362,6 +372,7 @@ export function SidebarNav() {
                         if (isAlreadyAdded) return;
                         addSection(item.type, item.defaultTitle, item.variant);
                         setDrawerOpen(false);
+                        onSelectSection?.(item.type);
                       }}
                       className={`flex flex-col items-start rounded-lg border p-3 text-left transition ${
                         isAlreadyAdded
@@ -400,7 +411,7 @@ export function SidebarNav() {
       <div className="border-t border-slate-200 p-2.5 bg-slate-50/50">
         <button
           type="button"
-          onClick={() => setActiveSectionId("STYLE")}
+          onClick={() => handleSelect("STYLE")}
           className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium transition-all ${
             activeSectionId === "STYLE"
               ? "bg-blue-600 text-white shadow-xs font-semibold"
